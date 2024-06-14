@@ -37,17 +37,44 @@ class PDFMarkerReader(BaseReader):
         """
         from marker.convert import convert_single_pdf
         from marker.models import load_all_models
+        from pypdf import PdfReader, PdfWriter
+
+        pdf = PdfReader(str(file))
+        #
+        pages = []
+        num_pages = len(pdf.pages)
+        # create a new pdf for each page
+        for i in range(num_pages):
+            writer = PdfWriter()
+            writer.add_page(pdf.pages[i])
+            page_path = str(file).replace(".pdf", f"_{i}.pdf")
+            pages.append({"path": page_path, "page_number": i + 1})
+            writer.write(page_path)
 
         model_lst = load_all_models()
-        full_text, images, out_meta = convert_single_pdf(
-            str(file),
-            model_lst,
-            max_pages=max_pages,
-            langs=langs,
-            batch_multiplier=batch_multiplier,
-            start_page=start_page,
-        )
 
-        doc = Document(text=full_text, extra_info=extra_info or {})
+        docs = []
+        for p in pages:
+            full_text, images, out_meta = convert_single_pdf(
+                p["path"],
+                model_lst,
+                max_pages=max_pages,
+                langs=langs,
+                batch_multiplier=batch_multiplier,
+                start_page=start_page,
+            )
+            if extra_info:
+                extra_info["title"] = Path(p["path"]).name
+                extra_info["page_number"] = p["page_number"]
+                docs.append(Document(text=full_text, extra_info=extra_info or {}))
+            else:
+                extra_info = {
+                    "title": p["path"].split("/")[-1],
+                    "page_number": p["page_number"],
+                }
 
-        return [doc]
+        # remove the temporary files
+        for p in pages:
+            Path(p["path"]).unlink()
+
+        return docs
