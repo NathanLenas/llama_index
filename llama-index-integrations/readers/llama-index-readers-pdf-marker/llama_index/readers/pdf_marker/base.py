@@ -66,7 +66,7 @@ class PDFMarkerReader(BaseReader):
             if extra_info:
                 extra_info["title"] = Path(p["path"]).name
                 extra_info["page_number"] = p["page_number"]
-                docs.append(Document(text=full_text, extra_info=extra_info or {}))
+                docs.append(Document(text=full_text, extra_info=extra_info))
             else:
                 extra_info = {
                     "title": p["path"].split("/")[-1],

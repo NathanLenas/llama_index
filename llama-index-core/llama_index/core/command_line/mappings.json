@@ -191,6 +191,7 @@
   "SimpleFileNodeParser": "llama_index.core.node_parser",
   "HTMLNodeParser": "llama_index.core.node_parser",
   "MarkdownNodeParser": "llama_index.core.node_parser",
+  "MarkdownNodeParserWithOptions": "llama_index.core.node_parser",
   "JSONNodeParser": "llama_index.core.node_parser",
   "SentenceWindowNodeParser": "llama_index.core.node_parser",
   "SemanticSplitterNodeParser": "llama_index.core.node_parser",

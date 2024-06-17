@@ -3,6 +3,9 @@ from typing import Dict, Type
 from llama_index.core.node_parser.file.html import HTMLNodeParser
 from llama_index.core.node_parser.file.json import JSONNodeParser
 from llama_index.core.node_parser.file.markdown import MarkdownNodeParser
+from llama_index.core.node_parser.file.markdown_with_options import (
+    MarkdownNodeParserWithOptions,
+)
 from llama_index.core.node_parser.file.simple_file import SimpleFileNodeParser
 from llama_index.core.node_parser.interface import NodeParser
 from llama_index.core.node_parser.relational.hierarchical import (
@@ -19,6 +22,7 @@ all_node_parsers: Dict[str, Type[NodeParser]] = {
     HTMLNodeParser.class_name(): HTMLNodeParser,
     JSONNodeParser.class_name(): JSONNodeParser,
     MarkdownNodeParser.class_name(): MarkdownNodeParser,
+    MarkdownNodeParserWithOptions.class_name(): MarkdownNodeParserWithOptions,
     SimpleFileNodeParser.class_name(): SimpleFileNodeParser,
     HierarchicalNodeParser.class_name(): HierarchicalNodeParser,
     CodeSplitter.class_name(): CodeSplitter,
