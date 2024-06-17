@@ -40,6 +40,19 @@ class PDFMarkerReader(BaseReader):
         from pypdf import PdfReader, PdfWriter
 
         pdf = PdfReader(str(file))
+
+        inferred_langs = []
+        if langs is None:
+            if "EN" in file.name:
+                inferred_langs.append("English")
+            if "DE" in file.name:
+                inferred_langs.append("German")
+            if "FR" in file.name:
+                inferred_langs.append("French")
+            if "LU" in file.name:
+                inferred_langs.append("English")
+                inferred_langs.append("French")
+                inferred_langs.append("German")
         #
         pages = []
         num_pages = len(pdf.pages)
@@ -59,7 +72,7 @@ class PDFMarkerReader(BaseReader):
                 p["path"],
                 model_lst,
                 max_pages=max_pages,
-                langs=langs,
+                langs=langs if langs else inferred_langs,
                 batch_multiplier=batch_multiplier,
                 start_page=start_page,
             )
