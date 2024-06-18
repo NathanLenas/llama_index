@@ -68,23 +68,28 @@ class PDFMarkerReader(BaseReader):
 
         docs = []
         for p in pages:
-            full_text, images, out_meta = convert_single_pdf(
-                p["path"],
-                model_lst,
-                max_pages=max_pages,
-                langs=langs if langs else inferred_langs,
-                batch_multiplier=batch_multiplier,
-                start_page=start_page,
-            )
-            if extra_info:
-                extra_info["title"] = Path(p["path"]).name
-                extra_info["page_number"] = p["page_number"]
-                docs.append(Document(text=full_text, extra_info=extra_info))
-            else:
-                extra_info = {
-                    "title": p["path"].split("/")[-1],
-                    "page_number": p["page_number"],
-                }
+            try:
+                full_text, images, out_meta = convert_single_pdf(
+                    p["path"],
+                    model_lst,
+                    max_pages=max_pages,
+                    langs=langs if langs else inferred_langs,
+                    batch_multiplier=batch_multiplier,
+                    start_page=start_page,
+                )
+                if extra_info:
+                    extra_info["title"] = Path(p["path"]).name
+                    extra_info["page_number"] = p["page_number"]
+                    docs.append(Document(text=full_text, extra_info=extra_info))
+                else:
+                    extra_info = {
+                        "title": p["path"].split("/")[-1],
+                        "page_number": p["page_number"],
+                    }
+            except Exception as e:
+                # If an error occurs, continue to the next page
+                # print(f"Error in processing page {p['page_number']}: {e}")
+                continue
 
         # remove the temporary files
         for p in pages:
