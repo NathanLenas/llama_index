@@ -35,8 +35,8 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4.0"
 llama-index-core = "^0.10.0"
-marker-pdf = "0.2.14"
-surya-ocr = "0.4.12"
+marker-pdf = "^0.2.16"
+surya-ocr = "^0.4.3"
 
 [tool.poetry.group.dev.dependencies]
 black = {extras = ["jupyter"], version = "<=23.9.1,>=23.7.0"}
