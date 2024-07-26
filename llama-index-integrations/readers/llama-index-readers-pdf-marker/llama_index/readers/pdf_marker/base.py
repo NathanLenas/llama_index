@@ -61,6 +61,7 @@ class PDFMarkerReader(BaseReader):
             writer = PdfWriter()
             writer.add_page(pdf.pages[i])
             page_path = str(file).replace(".pdf", f"_{i}.pdf")
+            print("writing to page path: " + page_path)
             pages.append({"path": page_path, "page_number": i + 1})
             writer.write(page_path)
 
@@ -93,6 +94,6 @@ class PDFMarkerReader(BaseReader):
 
         # remove the temporary files
         for p in pages:
-            Path(p["path"]).unlink()
+            Path(p["path"]).unlink(True)
 
         return docs
