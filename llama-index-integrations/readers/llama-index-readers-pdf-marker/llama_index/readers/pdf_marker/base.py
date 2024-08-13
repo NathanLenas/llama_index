@@ -60,7 +60,7 @@ class PDFMarkerReader(BaseReader):
         for i in range(num_pages):
             writer = PdfWriter()
             writer.add_page(pdf.pages[i])
-            page_path = str(file) + str(i)
+            page_path = str(file).replace(".pdf", f"_{i}.pdf")
             pages.append({"path": page_path, "page_number": i + 1})
             writer.write(page_path)
 
