@@ -35,8 +35,7 @@ version = "0.1.0"
 [tool.poetry.dependencies]
 python = ">=3.8.1,<4.0"
 llama-index-core = "*"
-marker-pdf = "^0.2.0"
-surya-ocr = { git = "https://github.com/VikParuchuri/surya", branch = "master" }
+marker-pdf = "*"
 
 
 [tool.poetry.group.dev.dependencies]
