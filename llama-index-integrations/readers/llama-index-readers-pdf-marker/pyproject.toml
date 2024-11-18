@@ -34,7 +34,7 @@ version = "0.2.0"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
-marker-pdf = "^0.2.0"
+marker-pdf = "^0.3.0"
 llama-index-core = "^0.11.0"
 
 [tool.poetry.group.dev.dependencies]
