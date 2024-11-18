@@ -30,7 +30,7 @@ license = "GPL-3.0-or-later"
 name = "llama-index-readers-pdf-marker"
 packages = [{include = "llama_index/"}]
 readme = "README.md"
-version = "0.2.0"
+version = "*"
 
 [tool.poetry.dependencies]
 python = ">=3.9,<4.0"
